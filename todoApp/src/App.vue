@@ -11,7 +11,7 @@
     <div class="input-group">
         <ul>
           <li class="list-group-item" v-for="(data, key) in todos" :key="key">
-            {{ key+1 }}  ➡  {{data.title}}
+            {{ key+1 }}   ➡   {{data.title}}
             <button class="btn btn-primary" @click="updateTodo(data.id, true)">✔</button>
             <button class="btn btn-primary" @click="updateTodo(data.id, false)">✖</button>
             <button class="btn btn-primary" @click="deleteTodo(data.id, data.title, key)">🗑️</button>
