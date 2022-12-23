@@ -1,0 +1,12 @@
+CREATE TABLE books (
+	id SERIAL PRIMARY KEY,
+	no INTEGER NOT NULL,
+	name VARCHAR(64) NOT NULL,
+	author VARCHAR(64) NOT NULL,
+	book_type VARCHAR(64) NOT NULL,
+	popularity INTEGER NOT NULL
+);
+
+SELECT * FROM books;
+
+DROP TABLE books;
