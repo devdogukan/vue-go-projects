@@ -15,6 +15,7 @@ type Book struct {
 	Author     string `json:"author"`
 	BookType   string `json:"type"`
 	Popularity int    `json:"popularity"`
+	AgeRange   int    `json:"age_range"`
 }
 
 const (
@@ -42,7 +43,8 @@ func InsertBook(b Book) int {
 	initalize()
 	defer db.Close()
 
-	result, err := db.Exec("INSERT INTO books(no, name, author, book_type, popularity) VALUES($1, $2, $3, $4, $5)", b.No, b.Name, b.Author, b.BookType, b.Popularity)
+	insertStr := "INSERT INTO books(no, name, author, book_type, popularity, age_range) VALUES($1, $2, $3, $4, $5, $6)"
+	result, err := db.Exec(insertStr, b.No, b.Name, b.Author, b.BookType, b.Popularity, b.AgeRange)
 
 	if err != nil {
 		log.Fatal(err)
@@ -57,7 +59,9 @@ func UpdateBook(id int, b Book) int {
 	initalize()
 	defer db.Close()
 
-	result, err := db.Exec("UPDATE books SET no=$2, name=$3, author=$4, book_type=$5, popularity=$5 WHERE id=$1", id, b.No, b.Name, b.Author, b.BookType, b.Popularity)
+	updateStr := "UPDATE books SET no=$2, name=$3, author=$4, book_type=$5, popularity=$5 WHERE id=$1"
+
+	result, err := db.Exec(updateStr, id, b.No, b.Name, b.Author, b.BookType, b.Popularity)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -97,11 +101,11 @@ func DropBooks() int {
 	return int(rowsAffected)
 }
 
-func GetAllBooks() []Book {
+func GetAllBooks(queryStr string) []Book {
 	initalize()
 	defer db.Close()
 
-	rows, err := db.Query("SELECT * FROM books")
+	rows, err := db.Query(queryStr)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -116,7 +120,7 @@ func GetAllBooks() []Book {
 
 	for rows.Next() {
 		book := Book{}
-		err = rows.Scan(&book.Id, &book.No, &book.Name, &book.Author, &book.BookType, &book.Popularity)
+		err = rows.Scan(&book.Id, &book.No, &book.Name, &book.Author, &book.BookType, &book.Popularity, &book.AgeRange)
 		if err != nil {
 			log.Fatal(err)
 		}

@@ -3,6 +3,7 @@ import { createRouter, createWebHistory} from "vue-router";
 import HomeCmp from "@/views/HomeScreen";
 import AuthorCmp from "@/views/AuthorScreen";
 import HelloWorld from "@/components/HelloWorld";
+import BooksCmp from "@/views/BooksScreen";
 
 const routes = [
     {
@@ -20,6 +21,11 @@ const routes = [
         name: "BarPage",
         path: "/bar",
         component: HelloWorld
+    },
+    {
+        name: "BooksPage",
+        path: "/books",
+        component: BooksCmp
     }
 ];
 
