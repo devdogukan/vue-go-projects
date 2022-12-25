@@ -4,6 +4,7 @@ import HomeCmp from "@/views/HomeScreen";
 import AuthorCmp from "@/views/AuthorScreen";
 import HelloWorld from "@/components/HelloWorld";
 import BooksCmp from "@/views/BooksScreen";
+import UserCmp from "@/views/UsersScreen";
 
 const routes = [
     {
@@ -26,6 +27,11 @@ const routes = [
         name: "BooksPage",
         path: "/:userID/books",
         component: BooksCmp
+    },
+    {
+        name: "UsersPage",
+        path: "/users",
+        component: UserCmp
     }
 ];
 
