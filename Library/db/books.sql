@@ -18,4 +18,6 @@ SELECT * FROM books;
 
 SELECT * FROM books WHERE age_range >= 18;
 
+SELECT * FROM books WHERE age_range >= 13 and age_range < 18;
+
 DROP TABLE books;

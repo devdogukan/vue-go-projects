@@ -15,7 +15,7 @@
                 <td>{{ data.author }}</td>
                 <td>{{ data.type }}</td>
                 <td>{{ data.popularity }}</td>
-                <td>{{ data.age_range }}</td>
+                <td>{{ data.age_range }}+</td>
             </tr>
         </table>
     </div>
@@ -31,7 +31,7 @@ export default {
         }
     },
     mounted() {
-        this.socket = new WebSocket("ws://localhost:9100/books")
+        this.socket = new WebSocket(`ws://localhost:9100/${this.$route.params.userID}/books`)
         this.socket.onmessage = (msg) => {
             this.books = JSON.parse(msg.data)
         }
@@ -46,4 +46,4 @@ export default {
     td {
         border: 1px solid black;
     }
-    </style>
+</style>

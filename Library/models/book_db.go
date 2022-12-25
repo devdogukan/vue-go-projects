@@ -2,7 +2,6 @@ package models
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 
 	_ "github.com/lib/pq"
@@ -18,29 +17,10 @@ type Book struct {
 	AgeRange   int    `json:"age_range"`
 }
 
-const (
-	host     = "localhost"
-	port     = "5432"
-	user     = "postgres"
-	dbname   = "books"
-	password = "dgnk1234"
-)
-
-var db *sql.DB
-
-func initalize() {
-	var err error
-	connString := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", host, port, user, dbname, password)
-
-	db, err = sql.Open("postgres", connString)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-}
+var databaseName string = "books"
 
 func InsertBook(b Book) int {
-	initalize()
+	initalize(databaseName)
 	defer db.Close()
 
 	insertStr := "INSERT INTO books(no, name, author, book_type, popularity, age_range) VALUES($1, $2, $3, $4, $5, $6)"
@@ -56,7 +36,7 @@ func InsertBook(b Book) int {
 }
 
 func UpdateBook(id int, b Book) int {
-	initalize()
+	initalize(databaseName)
 	defer db.Close()
 
 	updateStr := "UPDATE books SET no=$2, name=$3, author=$4, book_type=$5, popularity=$5 WHERE id=$1"
@@ -72,7 +52,7 @@ func UpdateBook(id int, b Book) int {
 }
 
 func DeleteBook(id int) int {
-	initalize()
+	initalize(databaseName)
 	defer db.Close()
 
 	result, err := db.Exec("DELETE FROM books WHERE id=$1", id)
@@ -87,7 +67,7 @@ func DeleteBook(id int) int {
 }
 
 func DropBooks() int {
-	initalize()
+	initalize(databaseName)
 	defer db.Close()
 
 	result, err := db.Exec("DROP TABLE books")
@@ -102,7 +82,7 @@ func DropBooks() int {
 }
 
 func GetAllBooks(queryStr string) []Book {
-	initalize()
+	initalize(databaseName)
 	defer db.Close()
 
 	rows, err := db.Query(queryStr)

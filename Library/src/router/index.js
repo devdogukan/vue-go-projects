@@ -24,7 +24,7 @@ const routes = [
     },
     {
         name: "BooksPage",
-        path: "/books",
+        path: "/:userID/books",
         component: BooksCmp
     }
 ];
